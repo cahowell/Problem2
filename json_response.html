@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h2>JSON Spin Results Output</h2>
+<div id="id01"></div>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+//var url = "http://localhost/problem2/build_output.php";
+ url = "json_response.txt";
+
+xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        myFunction(xmlhttp.responseText);
+    }
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(response) {
+    var arr = JSON.parse(response);
+    var i;
+    var out = "<table>";
+
+    for(i = 0; i < arr.length; i++) {
+        out += "<tr><td>" + 
+        arr[i].PlayerID +
+        "</td><td>" +
+        arr[i].Name +
+        "</td><td>" +
+        arr[i].Credits +
+        "</td><td>" +
+        arr[i].Lifetime_Spins +
+        "</td><td>" +
+        arr[i].Lifetime_Average_Return +
+        "</td></tr>";
+    }
+    out += "</table>"
+    document.getElementById("id01").innerHTML = out;
+}
+</script>
+
+</body>
+</html>
